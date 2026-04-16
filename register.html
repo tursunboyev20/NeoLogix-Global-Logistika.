@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="pageTitle">NeoLogix — Ro'yxatdan o'tish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .lang-switcher { display:flex; gap:4px; align-items:center; }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding: 4px 9px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { border-color: #F5C518; color: #F5C518; }
+    .lang-btn.active { background: #F5C518; color: #000; border-color: #F5C518; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    NEOLOGIX
+  </a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="uz" onclick="setLang('uz')">UZ</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="left-panel">
+    <div class="globe-list-row">
+
+      <div class="globe-wrap">
+        <svg class="globe-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#1a2540" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="36" ry="90" fill="none" stroke="#1a2540" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="68" ry="90" fill="none" stroke="#1a2540" stroke-width="1"/>
+          <line x1="10" y1="100" x2="190" y2="100" stroke="#1a2540" stroke-width="1"/>
+          <line x1="10" y1="68"  x2="190" y2="68"  stroke="#1a2540" stroke-width="0.5"/>
+          <line x1="10" y1="132" x2="190" y2="132" stroke="#1a2540" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#0057B8" stroke-width="1.5" opacity="0.35"/>
+          <circle cx="60"  cy="78" r="3" fill="#F5C518" opacity="0.7"/>
+          <circle cx="140" cy="60" r="3" fill="#F5C518" opacity="0.7"/>
+          <circle cx="155" cy="118" r="3" fill="#1a7fe0" opacity="0.7"/>
+          <circle cx="80"  cy="130" r="3" fill="#1a7fe0" opacity="0.7"/>
+          <path d="M60 78 Q90 45 140 60" fill="none" stroke="#F5C518" stroke-width="1" stroke-dasharray="3 2" opacity=".5"/>
+          <path d="M140 60 Q175 90 155 118" fill="none" stroke="#1a7fe0" stroke-width="1" stroke-dasharray="3 2" opacity=".5"/>
+        </svg>
+        <div class="globe-center-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div class="orbit-dot yellow"></div>
+        <div class="orbit-dot blue"></div>
+      </div>
+
+      <div class="side-list" id="colleaguePanel">
+        <div class="list-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span data-i18n="reg_colleagues_title">Hamkasblar ro'yxati</span>
+        </div>
+        <table class="workers-table">
+          <thead>
+            <tr>
+              <th data-i18n="reg_col_name">Ism</th>
+              <th data-i18n="reg_col_route">Yo'nalish</th>
+              <th data-i18n="reg_col_km">KM</th>
+              <th data-i18n="reg_col_status">Holat</th>
+            </tr>
+          </thead>
+          <tbody id="colleagueTbody"></tbody>
+        </table>
+      </div>
+
+      <div class="side-list hidden" id="workerPanel">
+        <div class="list-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span data-i18n="reg_workers_title">Bo'sh ishchilar</span>
+        </div>
+        <table class="workers-table">
+          <thead>
+            <tr>
+              <th data-i18n="reg_col_name">Ism</th>
+              <th data-i18n="reg_col_route">Yo'nalish</th>
+              <th data-i18n="reg_col_km">KM</th>
+              <th data-i18n="reg_col_status">Holat</th>
+            </tr>
+          </thead>
+          <tbody id="workersTbody"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="form-wrap">
+
+      <div id="formSection">
+        <div class="form-header">
+          <div class="form-tag" data-i18n="reg_platform">NeoLogix platformasi</div>
+          <div class="form-title" data-i18n="reg_heading">RO'YXATDAN<br>O'TISH</div>
+          <div class="form-subtitle" data-i18n="reg_subtitle">Rolni tanlang va ma'lumotlaringizni kiriting</div>
+        </div>
+
+        <div class="role-selector">
+          <div class="role-card active" id="roleWorker" onclick="selectRole('worker')">
+            <div class="role-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="role-name" data-i18n="reg_worker_name">Ishchi</div>
+            <div class="role-desc" data-i18n="reg_worker_desc">Yuk tashuvchi haydovchi</div>
+          </div>
+          <div class="role-card" id="roleBuyer" onclick="selectRole('buyer')">
+            <div class="role-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6ab0f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <div class="role-name" data-i18n="reg_buyer_name">Haridor</div>
+            <div class="role-desc" data-i18n="reg_buyer_desc">Yuk yuboruvchi mijoz</div>
+          </div>
+        </div>
+
+        <div class="fields-row">
+          <div class="field">
+            <label data-i18n="reg_fname">Ism</label>
+            <input type="text" id="fname" placeholder="Sarvar" data-i18n-ph="fname_ph"/>
+          </div>
+          <div class="field">
+            <label data-i18n="reg_lname">Familiya</label>
+            <input type="text" id="lname" placeholder="Toshmatov" data-i18n-ph="lname_ph"/>
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="reg_phone">Telefon raqam</label>
+          <input type="tel" id="phone" placeholder="+998 90 123 45 67"/>
+        </div>
+        <div class="field">
+          <label data-i18n="reg_city">Shahar / Hudud</label>
+          <select id="city">
+            <option value="" data-i18n="reg_city_select">Tanlang...</option>
+            <option>Sirdaryo</option><option>Toshkent</option><option>Samarqand</option>
+            <option>Buxoro</option><option>Namangan</option><option>Andijon</option>
+            <option>Farg'ona</option><option>Qarshi</option><option>Nukus</option>
+            <option>Termiz</option><option>Jizzax</option>
+          </select>
+        </div>
+
+        <div class="extra-fields show" id="workerFields">
+          <div class="section-divider"></div>
+          <div class="fields-row">
+            <div class="field">
+              <label data-i18n="reg_from">Qayerdan</label>
+              <input type="text" id="fromCity" placeholder="Toshkent"/>
+            </div>
+            <div class="field">
+              <label data-i18n="reg_to">Qayerga</label>
+              <input type="text" id="toCity" placeholder="Moskva"/>
+            </div>
+          </div>
+          <div class="fields-row">
+            <div class="field">
+              <label data-i18n="reg_transport">Transport turi</label>
+              <select id="transport">
+                <option value="" data-i18n="reg_transport_select">Tanlang...</option>
+                <option>Avtomobil</option>
+                <option>Dengiz</option>
+                <option>Havo</option>
+                <option>Temir yo'l</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-i18n="reg_capacity">Yuk sig'imi (t)</label>
+              <input type="number" id="capacity" placeholder="10" min="0.1" step="0.1"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-fields" id="buyerFields" style="display:none">
+          <div class="section-divider"></div>
+          <div class="field">
+            <label data-i18n="reg_company">Kompaniya / Ism</label>
+            <input type="text" id="company" data-i18n="reg_company_ph" placeholder="Kompaniya nomi (ixtiyoriy)"/>
+          </div>
+          <div class="field">
+            <label data-i18n="reg_route">Asosiy yo'nalish</label>
+            <select id="mainRoute">
+              <option value="" data-i18n="reg_route_select">Tanlang...</option>
+              <option>O'zbekiston ichki</option>
+              <option>MDH davlatlari</option>
+              <option>Yevropa</option>
+              <option>Xitoy / Osiyo</option>
+              <option>Yaqin Sharq</option>
+              <option>Boshqa</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="reg_pass">Parol</label>
+          <input type="password" id="pass" placeholder="••••••••"/>
+        </div>
+
+        <button class="submit-btn" onclick="handleRegister()" data-i18n="reg_btn">RO'YXATDAN O'TISH →</button>
+
+        <div class="login-link">
+          <span data-i18n="reg_login">Akkountingiz bormi?</span> <a href="#" data-i18n="reg_login_link">Kirish</a>
+        </div>
+      </div>
+
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-title" data-i18n="reg_success_title">MUVAFFAQIYATLI!</div>
+        <div class="success-sub" id="successMsg" data-i18n="reg_success_msg">Ro'yxatdan o'tdingiz.</div>
+        <a href="index.html" class="go-home-btn" data-i18n="reg_go_home">BOSH SAHIFAGA →</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="./i18n.js"></script>
+<script>
+  // Select option [data-i18n] larini tarjima qilish
+  function applySelectI18n() {
+    document.querySelectorAll('select option[data-i18n]').forEach(function(opt) {
+      opt.textContent = t(opt.dataset.i18n);
+    });
+    // company input placeholder
+    var comp = document.getElementById('company');
+    if (comp) comp.placeholder = t('reg_company_ph');
+  }
+
+  var _origApplyLang = applyLang;
+  applyLang = function() {
+    _origApplyLang();
+    applySelectI18n();
+    // page title
+    document.title = t('reg_title');
+  };
+
+  document.addEventListener('DOMContentLoaded', function() { applyLang(); });
+  applyLang();
+</script>
+<script src="./script.js"></script>
+</body>
+</html>
